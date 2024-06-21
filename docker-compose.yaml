@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  back:
+    image: php:8.0-apache
+    container_name: php
+    volumes:
+      - ./back:/var/www/html
+    ports:
+      - "8000:80"
+    environment:
+      - APACHE_LOG_DIR=/var/log/apache2
