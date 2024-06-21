@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  login_service:
+    build:
+      context: ./login/php
+      dockerfile: dockerfile
+    volumes:
+      - ./:/var/www/html
+    ports:
+      - "8000:80"
+    depends_on:
+      - db
+  db:
+    build:
+      context: ./login/mysql
+      dockerfile: dockerfile
+    volumes:
+      - ./login/mysql/users:/var/lib/mysql
+    ports:
+      - "3307:3307"
+    environment:
+      - MYSQL_ROOT_PASSWORD=admin
