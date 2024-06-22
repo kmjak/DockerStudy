@@ -1,8 +1,4 @@
 FROM php:8.0-apache
-# RUN apt-get update && docker-php-ext-install mysqli pdo_mysql
-# WORKDIR /var/www/html
-
-# EXPOSE 80
 RUN apt-get update && apt-get install -y \
     libpng-dev \
     libjpeg62-turbo-dev \
@@ -14,14 +10,8 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install -j$(nproc) gd \
     && docker-php-ext-install pdo pdo_mysql
 
-# 作業ディレクトリを設定
 WORKDIR /var/www/html
 
-# コンテナ内にファイルをコピー
 COPY . .
 
-# ポートを公開（例として80番ポート）
 EXPOSE 80
-
-# コンテナ起動時に実行されるコマンド
-CMD ["php", "-S", "0.0.0.0:80", "-t", "/var/www/html"]
